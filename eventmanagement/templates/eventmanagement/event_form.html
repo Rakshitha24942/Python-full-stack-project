@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% if form.instance.pk %}Edit Event{% else %}Add Event{% endif %}</title>
+    <script>
+        function toggleDynamicPricingFields() {
+            const checkbox = document.getElementById('id_dynamic_pricing_enabled');
+            const section = document.getElementById('dynamic-pricing-section');
+            section.style.display = checkbox.checked ? 'block' : 'none';
+        }
+
+        function toggleGSTMessage() {
+            const gstCheckbox = document.getElementById('id_gst_enabled');
+            const gstMsg = document.getElementById('gst-message');
+            gstMsg.style.display = gstCheckbox.checked ? 'block' : 'none';
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            toggleDynamicPricingFields();
+            toggleGSTMessage();
+            document.getElementById('id_dynamic_pricing_enabled').addEventListener('change', toggleDynamicPricingFields);
+            document.getElementById('id_gst_enabled').addEventListener('change', toggleGSTMessage);
+        });
+    </script>
+</head>
+<body>
+    <h1>{% if form.instance.pk %}Edit Event{% else %}Add New Event{% endif %}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <p>{{ form.title.label_tag }} {{ form.title }}</p>
+        <p>{{ form.type.label_tag }} {{ form.type }}</p>
+        <p>{{ form.date_time.label_tag }} {{ form.date_time }}</p>
+        <p>{{ form.fee.label_tag }} {{ form.fee }}</p>
+        <p>{{ form.seats.label_tag }} {{ form.seats }}</p>
+        <p>{{ form.early_bird_enabled.label_tag }} {{ form.early_bird_enabled }}</p>
+        <p>{{ form.dynamic_pricing_enabled.label_tag }} {{ form.dynamic_pricing_enabled }}</p>
+        <p>{{ form.gst_enabled.label_tag }} {{ form.gst_enabled }}</p>
+
+        <div id="gst-message" style="display: none; color: green;">
+            GST (18%) will be added to the total fee during checkout.
+        </div>
+
+        <p>{{ form.description.label_tag }} {{ form.description }}</p>
+
+        <div id="dynamic-pricing-section" style="display: none; margin-top: 20px;">
+            <h3>Dynamic Pricing Configuration</h3>
+            <p>{{ form.stage1_seats.label_tag }} {{ form.stage1_seats }}</p>
+            <p>{{ form.stage1_price.label_tag }} {{ form.stage1_price }}</p>
+            <p>{{ form.stage2_seats.label_tag }} {{ form.stage2_seats }}</p>
+            <p>{{ form.stage2_price.label_tag }} {{ form.stage2_price }}</p>
+            <p>{{ form.stage3_seats.label_tag }} {{ form.stage3_seats }}</p>
+            <p>{{ form.stage3_price.label_tag }} {{ form.stage3_price }}</p>
+        </div>
+
+        <button type="submit">Save</button>
+        <a href="{% url 'event_list' %}" style="margin-left: 10px;">Cancel</a>
+    </form>
+
+    <br>
+    <a href="{% url 'event_list' %}">Back to Event List</a>
+</body>
+</html>

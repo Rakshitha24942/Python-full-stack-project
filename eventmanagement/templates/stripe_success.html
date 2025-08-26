@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment Successful</title>
+</head>
+<body>
+    <h1>Thank you for your payment!</h1>
+    <p>Your transaction was successful.</p>
+
+    <a href="{% url 'profile' %}">Go to Your Profile</a>
+
+    <!-- Add download ticket button -->
+    <br><br>
+    <a href="{% url 'download_ticket' event.id %}">
+        <button>Download Your Ticket (PDF)</button>
+    </a>
+</body>
+</html>

@@ -1,0 +1,21 @@
+<h1>Price Breakdown - {{ event.title }}</h1>
+
+<p>Base Price: ${{ base_price }}</p>
+
+{% if discount > 0 %}
+<p>Discount: -${{ discount|floatformat:2 }}</p>
+{% endif %}
+
+{% if gst_amount > 0 %}
+<p>GST (18%): ${{ gst_amount|floatformat:2 }}</p>
+{% endif %}
+
+<hr>
+<p><strong>Final Price: ${{ final_price|floatformat:2 }}</strong></p>
+
+<form method="post" action="{% url 'register_event' event.pk %}">
+    {% csrf_token %}
+    <button type="submit">Proceed to Payment</button>
+</form>
+
+<a href="{% url 'event_detail' event.pk %}">Cancel</a>

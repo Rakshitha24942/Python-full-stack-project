@@ -1,0 +1,31 @@
+<section>
+    <h2>{{ event.title }}</h2>
+    <p><strong>Type:</strong> {{ event.type }}</p>
+    <p><strong>Date & Time:</strong> {{ event.date_time|date:"M d, Y - H:i" }}</p>
+    <p><strong>Fee:</strong> 
+        {% if event.fee == 0 %}
+            Free
+        {% else %}
+            ₹{{ event.fee }}
+        {% endif %}
+    </p>
+    <p><strong>Description:</strong><br>{{ event.description }}</p>
+</section>
+
+<hr>
+
+<section>
+    {% if user.is_authenticated %}
+        <a href="{% url 'event_price_breakdown' event.pk %}">
+            <button>
+                {% if event.fee == 0 %}
+                    Register for Free
+                {% else %}
+                    View Price & Pay
+                {% endif %}
+            </button>
+        </a>
+    {% else %}
+        <p><a href="{% url 'login' %}">Log in</a> to register for this event.</p>
+    {% endif %}
+</section>

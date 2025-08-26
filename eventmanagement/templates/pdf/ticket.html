@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Ticket for {{ event.title }}</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      color: #000000;
+    }
+    h1 {
+      color: #2c3e50;
+      font-size: 24px;
+      margin-bottom: 20px;
+    }
+    p {
+      margin-top: 5px;
+      margin-bottom: 5px;
+    }
+    .ticket-box {
+      border: 2px solid #2980b9;
+      padding-top: 20px;
+      padding-bottom: 20px;
+      padding-left: 20px;
+      padding-right: 20px;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="ticket-box">
+    <h1>Ticket for {{ event.title }}</h1>
+    <p><strong>Name:</strong> {{ user.get_full_name|default:user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Event Date:</strong> {{ event.date_time|date:"F j, Y, g:i a" }}</p>
+    <p>Thank you for your registration! Please present this ticket at the event.</p>
+  </div>
+</body>
+</html>

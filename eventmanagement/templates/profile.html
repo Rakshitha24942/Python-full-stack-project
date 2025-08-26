@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Profile</title>
+</head>
+<body>
+    <h1>Profile Page</h1>
+
+    <p><strong>Username:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>Phone:</strong> {{ profile.phone }}</p>
+    <p><strong>Organization:</strong> {{ profile.organization }}</p>
+
+    <form action="{% url 'logout' %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+
+    <hr>
+
+    <h2>Registered Events</h2>
+    {% if registered_events %}
+        <ul>
+            {% for event in registered_events %}
+                <li>
+                    <strong>{{ event.title }}</strong> - {{ event.date_time|date:"M d, Y H:i" }}
+                    {% if event.fee > 0 %}
+                        (Paid)
+                    {% else %}
+                        (Free)
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You haven’t registered for any events yet.</p>
+    {% endif %}
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Percentage-Based Dynamic Pricing</title>
+  <style>
+    .stage {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Configure Event Pricing</h2>
+
+  <form id="pricingForm">
+    <label>Total Seats:
+      <input type="number" id="totalSeats" value="100" required>
+    </label><br><br>
+
+    <div class="stage">
+      <strong>Stage 1: First 30%</strong><br>
+      <label>Price: ₹ <input type="number" id="priceStage1" value="500" required></label>
+    </div>
+
+    <div class="stage">
+      <strong>Stage 2: Next 30%</strong><br>
+      <label>Price: ₹ <input type="number" id="priceStage2" value="600" required></label>
+    </div>
+
+    <div class="stage">
+      <strong>Stage 3: Last 40%</strong><br>
+      <label>Price: ₹ <input type="number" id="priceStage3" value="700" required></label>
+    </div>
+
+    <button type="submit">Submit Pricing</button>
+  </form>
+
+  <script>
+    document.getElementById('pricingForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const totalSeats = parseInt(document.getElementById('totalSeats').value);
+      const price1 = parseFloat(document.getElementById('priceStage1').value);
+      const price2 = parseFloat(document.getElementById('priceStage2').value);
+      const price3 = parseFloat(document.getElementById('priceStage3').value);
+
+      const stage1Seats = Math.round(totalSeats * 0.3);
+      const stage2Seats = Math.round(totalSeats * 0.3);
+      const stage3Seats = totalSeats - stage1Seats - stage2Seats; // ensures 100%
+
+      const pricingStages = [
+        { stage: 1, percentage: 30, seats: stage1Seats, price: price1 },
+        { stage: 2, percentage: 30, seats: stage2Seats, price: price2 },
+        { stage: 3, percentage: 40, seats: stage3Seats, price: price3 },
+      ];
+
+      console.log('Dynamic Pricing:', pricingStages);
+      alert("Submitted! Check console for pricing breakdown.");
+    });
+  </script>
+
+</body>
+</html>
